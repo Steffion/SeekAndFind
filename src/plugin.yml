@@ -1,0 +1,19 @@
+name: SeekAndFind
+main: nl.Steffion.SeekAndFind.SeekAndFind
+version: 1.0_BETA
+authors:
+    - Steffion
+description: >
+             A fun minigame where you need to Hide for other players! Like Hide And Seek.
+commands:
+    seekandfind:
+        description: Command to use SeekAndFind.
+        usage: /<command>
+        aliases:
+            - hideandseek
+            - has
+            - hs
+            - h
+            - seekandfind
+            - saf
+            - sf

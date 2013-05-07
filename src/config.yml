@@ -1,0 +1,22 @@
+tag:
+  enabled: true
+  tag: "&9[%name&9] "
+  header: "%header== [] ====== [ %arg%name%header ] ====== [] =="
+autoload:
+  enabled: true
+  interval: 15
+updatechecker:
+  enabled: true
+chat:
+  normalcolour: "&b"
+  headercolour: "&9"
+  warningcolour: "&e"
+  errorcolour: "&c"
+  argcolour: "&e"
+  noPerms: "%errYou don't have the permissions to do %arg/%kind%err."
+  noCommand: "%errCommand not found. Use %arg/hideandseek <help/h> [page number]%err."
+wandid: 336
+timer:
+  lobbycountdown: 90
+  freerun: 20
+  arena: 120
