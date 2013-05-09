@@ -420,12 +420,12 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				NodeList childs = lastFile.getChildNodes();
 				version = childs.item(1).getTextContent().replaceAll("v", "");
 				link = childs.item(3).getTextContent();
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking updates... Result: §a§kOK!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: §a§kOK!");
 				if (!pdfFile.getVersion().equals(version)) {
 					return true;
 				}
 			} else {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking updates... Result: " + errorcolour + "§kError!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "§kError!");
 			}
 		} catch (Exception e) {
 			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking updates... Result: " + errorcolour + "§kError!");
