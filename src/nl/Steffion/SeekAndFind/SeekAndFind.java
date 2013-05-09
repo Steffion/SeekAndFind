@@ -47,8 +47,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -784,7 +784,63 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 		}
 
 	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void PlayerIntractEntityEvent (PlayerInteractEntityEvent event) {
+		if (event.getRightClicked() instanceof Player) {
+			Player player = event.getPlayer();
+			Player player2 = (Player) event.getRightClicked();
 
+			if (player_arena.get(player) != null) {
+				String an = player_arena.get(player);
+				if (player_arena.get(player2) != null) {
+					if (arena_it.get(an) != null) {
+						if (arena_status.get(an) == "arena") {
+							if (arena_it.get(an).equals(player2)) {						
+								ArrayList<Player> players = new ArrayList<Player>();
+								for (Player playerz : Bukkit.getOnlinePlayers()) {
+									if (player_arena.get(playerz) != null) {
+										if (player_arena.get(playerz).equals(an)) {
+											players.add(playerz);
+										}
+									}
+								}
+
+								arenaBroadcast(an, (String) getFile("winArena", "String", CmessagesFile).toString()
+										.replaceAll("%1", player.getDisplayName())
+										.replaceAll("%2", arena_it.get(an).getDisplayName()));
+
+								for (Player playerz2 : players) {
+									arenaPlayerJoinLeave(playerz2, an, "win");
+									if (arena_it.get(an).equals(playerz2)) {
+										playerz2.playSound(playerz2.getLocation(), Sound.ENDERMAN_DEATH, 10, (float) 0.1);
+									} else {
+										playerz2.playSound(playerz2.getLocation(), Sound.LEVEL_UP, 5, 1);
+									}
+								}
+
+								arena_status.put(an, "lobby");
+								arena_timer.put(an, null);
+								arena_it.put(an, null);
+
+								Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+								FireworkMeta fwm = fw.getFireworkMeta();
+
+								Type type = Type.BALL_LARGE;
+								Color c1 = Color.fromRGB(255, 255, 0);
+								FireworkEffect effect = FireworkEffect.builder().flicker(true).withColor(c1).with(type).trail(true).build();
+								fwm.addEffect(effect);
+								fwm.setPower(0);
+
+								fw.setFireworkMeta(fwm);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void PlayerInteractEvent (PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -802,7 +858,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 							}
 						}
 						pos1.put(player, l);
-						msg (player, getFile("setPos", "String", CmessagesFile).toString()
+						msg(player, getFile("setPos", "String", CmessagesFile).toString()
 								.replaceAll("%1", "1")
 								.replaceAll("%x", String.valueOf(l.getX()))
 								.replaceAll("%y", String.valueOf(l.getY()))
@@ -818,7 +874,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 							}
 						}
 						pos2.put(player, l);
-						msg (player, getFile("setPos", "String", CmessagesFile).toString()
+						msg(player, getFile("setPos", "String", CmessagesFile).toString()
 								.replaceAll("%1", "2")
 								.replaceAll("%x", String.valueOf(l.getX()))
 								.replaceAll("%y", String.valueOf(l.getY()))
@@ -850,6 +906,14 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 			}
 		}
 	}
+	
+	@EventHandler(priority = EventPriority.HIGH)
+	public void PlayerQuitEvent (PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		if (player_arena.get(player) != null) {
+			arenaPlayerJoinLeave(player, player_arena.get(player), "forceleave");
+		}
+	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void BlockBreakEvent (BlockBreakEvent event) {
@@ -864,7 +928,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				|| block.getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) block.getState();
 
-			if (sign.getLine(0) == "§9[§eH&S§9]") {
+			if (sign.getLine(0) == "§9[§eS&F§9]") {
 				if (perms(player, "seekandfind.signbreak", "admin", null)) {
 					return;
 				} else {
@@ -981,14 +1045,6 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
-	public void PlayerQuitEvent (PlayerQuitEvent event) {
-		Player player = event.getPlayer();
-		if (player_arena.get(player) != null) {
-			arenaPlayerJoinLeave(player, player_arena.get(player), "forceleave");
-		}
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
 	public void EntityDamageEvent (EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
@@ -1010,63 +1066,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 			}
 		}
 	}
-
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void PlayerIntractEntityEvent (PlayerInteractEntityEvent event) {
-		if (event.getRightClicked() instanceof Player) {
-			Player player = event.getPlayer();
-			Player player2 = (Player) event.getRightClicked();
-
-			if (player_arena.get(player) != null) {
-				String an = player_arena.get(player);
-				if (player_arena.get(player2) != null) {
-					if (arena_it.get(an) != null) {
-						if (arena_status.get(an) == "arena") {
-							if (arena_it.get(an).equals(player2)) {						
-								ArrayList<Player> players = new ArrayList<Player>();
-								for (Player playerz : Bukkit.getOnlinePlayers()) {
-									if (player_arena.get(playerz) != null) {
-										if (player_arena.get(playerz).equals(an)) {
-											players.add(playerz);
-										}
-									}
-								}
-
-								arenaBroadcast(an, (String) getFile("winArena", "String", CmessagesFile).toString()
-										.replaceAll("%1", player.getDisplayName())
-										.replaceAll("%2", arena_it.get(an).getDisplayName()));
-
-								for (Player playerz2 : players) {
-									arenaPlayerJoinLeave(playerz2, an, "win");
-									if (arena_it.get(an).equals(playerz2)) {
-										playerz2.playSound(playerz2.getLocation(), Sound.ENDERMAN_DEATH, 10, (float) 0.1);
-									} else {
-										playerz2.playSound(playerz2.getLocation(), Sound.LEVEL_UP, 5, 1);
-									}
-								}
-
-								arena_status.put(an, "lobby");
-								arena_timer.put(an, null);
-								arena_it.put(an, null);
-
-								Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
-								FireworkMeta fwm = fw.getFireworkMeta();
-
-								Type type = Type.BALL_LARGE;
-								Color c1 = Color.fromRGB(255, 255, 0);
-								FireworkEffect effect = FireworkEffect.builder().flicker(true).withColor(c1).with(type).trail(true).build();
-								fwm.addEffect(effect);
-								fwm.setPower(0);
-
-								fw.setFireworkMeta(fwm);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
+	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void SignChangeEvent (SignChangeEvent event) {
 		Player player = event.getPlayer();
@@ -1111,7 +1111,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 					} catch (InvalidConfigurationException e) {
 						e.printStackTrace();
 					}
-
+					
 					CheckSigns();
 				} else {
 					msg (player, (String) getFile("notanArena", "String", CmessagesFile), null, null, null, true);
@@ -1619,7 +1619,6 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 					@Override
 					public void run() {
 						String an2 = player_arena.get(player);
-						player_arena.put(player, null);
 						arena_players.put(an2, arena_players.get(an2) - 1);
 						arenaBroadcast(an2, (String) getFile("playerLeft", "String", CmessagesFile).toString()
 								.replaceAll("%player", player.getDisplayName())
@@ -1631,7 +1630,8 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 						player.getInventory().setArmorContents(player_inva.get(player));
 						player.setGameMode(player_gm.get(player));
 						player.addPotionEffect(new PotionEffect (PotionEffectType.INVISIBILITY, 1, 1), true);
-
+						
+						player_arena.put(player, null);
 						player_locbefore.put(player, null);
 						player_inv.put(player, null);
 						player_inva.put(player, null);
