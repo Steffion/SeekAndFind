@@ -86,13 +86,13 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 	int autoloadinterval = 15;
 	String link = null;
 	String version = null;
-	String unknown = "Â§4Unknown Message.";
+	String unknown = "¤4Unknown Message.";
 	Boolean updatechecker = true;
-	String normalcolour = "Â§b";
-	String headercolour = "Â§9";
-	String warningcolour = "Â§e";
-	String errorcolour = "Â§c";
-	String argcolour = "Â§e";
+	String normalcolour = "¤b";
+	String headercolour = "¤9";
+	String warningcolour = "¤e";
+	String errorcolour = "¤c";
+	String argcolour = "¤e";
 	String noPerms = "%errYou don't have the permissions to do %arg/%kind%err.";
 	String noPermsToDo = "%errYou don't have the permissions to do that!";
 	String noCommand = "%errCommand not found. Use %arg/seekandfind <help/h>  [page number]%err.";
@@ -113,7 +113,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 		PluginDescriptionFile pdfFile = this.getDescription();
 		getServer().getPluginManager().registerEvents(this, this);
 
-		pluginTag = "Â§9[" + pdfFile.getName() + "Â§9] ";
+		pluginTag = "¤9[" + pdfFile.getName() + "¤9] ";
 
 		configFile = new File(getDataFolder(), "config.yml");
 		messagesFile = new File(getDataFolder(), "messages.yml");
@@ -157,22 +157,22 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				}, 1, 600);
 			}
 		} else {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking updates... Result: " + errorcolour + "Â§kDisabled!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking updates... Result: " + errorcolour + "¤kDisabled!");
 		}
 
 		try {
 			Metrics metrics = new Metrics(this);
 			metrics.start();
 			if (!metrics.configuration.getBoolean("opt-out", false)) {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Sending " + argcolour + "MCStats" + normalcolour + ". Result: Â§aÂ§kOK!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Sending " + argcolour + "MCStats" + normalcolour + ". Result: ¤a¤kOK!");
 			} else {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Sending " + argcolour + "MCStats" + normalcolour + ". Result: " + errorcolour + "Â§kDisabled!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Sending " + argcolour + "MCStats" + normalcolour + ". Result: " + errorcolour + "¤kDisabled!");
 			}
 		} catch (IOException e) {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Sending " + argcolour + "MCStats" + normalcolour + ". Result: " + errorcolour + "Â§kError!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Sending " + argcolour + "MCStats" + normalcolour + ". Result: " + errorcolour + "¤kError!");
 		}
 
-		Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + pdfFile.getName() + " Â§aÂ§k+Â§r" + normalcolour + " Enabled. Version " + pdfFile.getVersion() + ". Made by Steffion.");
+		Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + pdfFile.getName() + " ¤a¤k+¤r" + normalcolour + " Enabled. Version " + pdfFile.getVersion() + ". Made by Steffion.");
 
 		if (autoloadinterval != 0) {
 			this.getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
@@ -406,7 +406,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				arenaPlayerJoinLeave(player, player_arena.get(player), "forceleave");
 			}
 		}
-		Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + pdfFile.getName() + " Â§cÂ§k-Â§r" + normalcolour + " Disabled. Version " + pdfFile.getVersion() + ". Made by Steffion.");
+		Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + pdfFile.getName() + " ¤c¤k-¤r" + normalcolour + " Disabled. Version " + pdfFile.getVersion() + ". Made by Steffion.");
 	}
 
 	public boolean updateCheck () {
@@ -420,15 +420,15 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				NodeList childs = lastFile.getChildNodes();
 				version = childs.item(1).getTextContent().replaceAll("v", "");
 				link = childs.item(3).getTextContent();
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: Â§aÂ§kOK!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: ¤a¤kOK!");
 				if (!pdfFile.getVersion().equals(version)) {
 					return true;
 				}
 			} else {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "Â§kError!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "¤kError!");
 			}
 		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "Â§kError!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "¤kError!");
 		}
 		return false;
 	}
@@ -460,7 +460,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				if (getFile("tag.tag", "String", CconfigFile).toString().contains("%name")) {
 					pluginTag = (String) getFile("tag.tag", "String", CconfigFile).toString().replaceAll("%name", pdfFile.getName());
 				} else {
-					pluginTag = "Â§9[" + pdfFile.getName() + "Â§9] ";
+					pluginTag = "¤9[" + pdfFile.getName() + "¤9] ";
 				}
 			} else {
 				pluginTag = "";
@@ -485,10 +485,10 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 			argcolour = (String) getFile("chat.argcolour", "String", CconfigFile);
 
 			if (first) {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "config.yml" + normalcolour + "'. Result: Â§aÂ§kOK!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "config.yml" + normalcolour + "'. Result: ¤a¤kOK!");
 			}
 		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "config.yml" + normalcolour + "'. Result: " + errorcolour + "Â§kError!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "config.yml" + normalcolour + "'. Result: " + errorcolour + "¤kError!");
 			e.printStackTrace();
 		}
 
@@ -503,10 +503,10 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 			noCommand = (String) getFile("noCommand", "String", CmessagesFile);
 
 			if (first) {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "messages.yml" + normalcolour + "'. Result: Â§aÂ§kOK!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "messages.yml" + normalcolour + "'. Result: ¤a¤kOK!");
 			}
 		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "messages.yml" + normalcolour + "'. Result: " + errorcolour + "Â§kError!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "messages.yml" + normalcolour + "'. Result: " + errorcolour + "¤kError!");
 			e.printStackTrace();
 		}
 
@@ -527,10 +527,10 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 			}
 
 			if (first) {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "arenas.yml" + normalcolour + "'. Result: Â§aÂ§kOK!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "arenas.yml" + normalcolour + "'. Result: ¤a¤kOK!");
 			}
 		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "arenas.yml" + normalcolour + "'. Result: " + errorcolour + "Â§kError!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "arenas.yml" + normalcolour + "'. Result: " + errorcolour + "¤kError!");
 			e.printStackTrace();
 		}
 
@@ -541,10 +541,10 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 			CsignsFile.getKeys(true);
 
 			if (first) {
-				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "signs.yml" + normalcolour + "'. Result: Â§aÂ§kOK!");
+				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "signs.yml" + normalcolour + "'. Result: ¤a¤kOK!");
 			}
 		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "signs.yml" + normalcolour + "'. Result: " + errorcolour + "Â§kError!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Loading '" + argcolour + "signs.yml" + normalcolour + "'. Result: " + errorcolour + "¤kError!");
 			e.printStackTrace();
 		}
 	}
@@ -597,22 +597,22 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 					if (an.equals("leave")) {
 						Sign signblock = (Sign) block.getState();
 
-						signblock.setLine(0, "Â§9[Â§eS&FÂ§9]");
-						signblock.setLine(1, "Â§4LEAVE");
-						signblock.setLine(2, "Â§8Right-Click");
-						signblock.setLine(3, "Â§8To leave.");
+						signblock.setLine(0, "¤9[¤eS&F¤9]");
+						signblock.setLine(1, "¤4LEAVE");
+						signblock.setLine(2, "¤8Right-Click");
+						signblock.setLine(3, "¤8To leave.");
 						signblock.update();
 					} else if (arena_status.get(an) != null) {
 						Sign signblock = (Sign) block.getState();
 
-						signblock.setLine(0, "Â§9[Â§eS&FÂ§9]");
-						signblock.setLine(1, "Â§8" + an);
-						signblock.setLine(2, "Â§8" + arena_players.get(an) + "/" + getInt(an + ".players", CarenasFile));
+						signblock.setLine(0, "¤9[¤eS&F¤9]");
+						signblock.setLine(1, "¤8" + an);
+						signblock.setLine(2, "¤8" + arena_players.get(an) + "/" + getInt(an + ".players", CarenasFile));
 						if (arena_status.get(an) == "lobby") {
-							signblock.setLine(3, "Â§2WAITING");
+							signblock.setLine(3, "¤2WAITING");
 						} else if (arena_status.get(an) == "prepare"
 								|| arena_status.get(an) == "arena") {
-							signblock.setLine(3, "Â§4INPROGRESS");
+							signblock.setLine(3, "¤4INPROGRESS");
 						}
 						signblock.update();
 					} else {
@@ -689,28 +689,28 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 	}
 
 	public String Colours (String string, boolean enters) {
-		string = string.replaceAll("&0", "Â§0")
-				.replaceAll("&1", "Â§1")
-				.replaceAll("&2", "Â§2")
-				.replaceAll("&3", "Â§3")
-				.replaceAll("&4", "Â§4")
-				.replaceAll("&5", "Â§5")
-				.replaceAll("&6", "Â§6")
-				.replaceAll("&7", "Â§7")
-				.replaceAll("&8", "Â§8")
-				.replaceAll("&9", "Â§9")					
-				.replaceAll("&a", "Â§a")
-				.replaceAll("&b", "Â§b")
-				.replaceAll("&c", "Â§c")
-				.replaceAll("&d", "Â§d")
-				.replaceAll("&e", "Â§e")
-				.replaceAll("&f", "Â§f")
-				.replaceAll("&k", "Â§k")
-				.replaceAll("&l", "Â§l")
-				.replaceAll("&m", "Â§m")
-				.replaceAll("&n", "Â§n")
-				.replaceAll("&o", "Â§o")
-				.replaceAll("&r", "Â§r")
+		string = string.replaceAll("&0", "¤0")
+				.replaceAll("&1", "¤1")
+				.replaceAll("&2", "¤2")
+				.replaceAll("&3", "¤3")
+				.replaceAll("&4", "¤4")
+				.replaceAll("&5", "¤5")
+				.replaceAll("&6", "¤6")
+				.replaceAll("&7", "¤7")
+				.replaceAll("&8", "¤8")
+				.replaceAll("&9", "¤9")					
+				.replaceAll("&a", "¤a")
+				.replaceAll("&b", "¤b")
+				.replaceAll("&c", "¤c")
+				.replaceAll("&d", "¤d")
+				.replaceAll("&e", "¤e")
+				.replaceAll("&f", "¤f")
+				.replaceAll("&k", "¤k")
+				.replaceAll("&l", "¤l")
+				.replaceAll("&m", "¤m")
+				.replaceAll("&n", "¤n")
+				.replaceAll("&o", "¤o")
+				.replaceAll("&r", "¤r")
 				.replaceAll("%norm", normalcolour)
 				.replaceAll("%err", errorcolour)
 				.replaceAll("%warn", warningcolour)
@@ -891,12 +891,12 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 						|| block.getType() == Material.WALL_SIGN) {
 					Sign sign = (Sign) block.getState();
 
-					if (sign.getLine(0) == "Â§9[Â§eS&FÂ§9]") {
+					if (sign.getLine(0) == "¤9[¤eS&F¤9]") {
 						if (perms(player, "seekandfind.signjoin", "player", null)) {
-							if (sign.getLine(1) == "Â§4LEAVE") {
+							if (sign.getLine(1) == "¤4LEAVE") {
 								arenaPlayerJoinLeave(player, null, "leave");
 							} else {
-								arenaPlayerJoinLeave(player, sign.getLine(1).replaceAll("Â§8", ""), "join");
+								arenaPlayerJoinLeave(player, sign.getLine(1).replaceAll("¤8", ""), "join");
 							}
 							event.setCancelled(true);
 							return;
@@ -928,7 +928,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				|| block.getType() == Material.WALL_SIGN) {
 			Sign sign = (Sign) block.getState();
 
-			if (sign.getLine(0) == "Â§9[Â§eS&FÂ§9]") {
+			if (sign.getLine(0) == "¤9[¤eS&F¤9]") {
 				if (perms(player, "seekandfind.signbreak", "admin", null)) {
 					return;
 				} else {
