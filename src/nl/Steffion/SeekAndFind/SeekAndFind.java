@@ -63,6 +63,7 @@ import org.w3c.dom.NodeList;
 
 public class SeekAndFind extends JavaPlugin implements Listener {
 	public static SeekAndFind plugin;
+	public final SeekAndFindPlayer SeekAndFindPlayer = new SeekAndFindPlayer(this);
 
 	public Random random = new Random();
 
@@ -157,7 +158,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				}, 1, 600);
 			}
 		} else {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking updates... Result: " + errorcolour + "¤kDisabled!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "¤kDisabled!");
 		}
 
 		try {
