@@ -428,7 +428,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "§kError!");
 			}
 		} catch (Exception e) {
-			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking updates... Result: " + errorcolour + "§kError!");
+			Bukkit.getConsoleSender().sendMessage(pluginTag + normalcolour + "Checking for updates... Result: " + errorcolour + "§kError!");
 		}
 		return false;
 	}
