@@ -145,7 +145,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 						for (Player player : Bukkit.getOnlinePlayers()) {
 							if (player.isOp()) {
 								player.sendMessage(pluginTag + warningcolour + "There is a new version available for SeekAndFind!");
-								player.sendMessage(pluginTag + warningcolour + "Version v" + version);
+								player.sendMessage(pluginTag + warningcolour + "Version v" + version + ".");
 								player.sendMessage(pluginTag + warningcolour + "Download it here: " + link);
 							} else if (perms(player, "seekandfind.update", "admin", null)) {
 								player.sendMessage(pluginTag + warningcolour + "There is a new version available for SeekAndFind!");
