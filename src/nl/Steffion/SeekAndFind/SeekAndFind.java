@@ -1133,7 +1133,7 @@ public class SeekAndFind extends JavaPlugin implements Listener {
 				msg (player, header(pdfFile.getName()) + "\n"
 						+ normalcolour + "Made by " + argcolour + "Steffion" + normalcolour + ".\n"
 						+ normalcolour + "Version: " + argcolour + pdfFile.getVersion() + normalcolour + ".\n"
-						+ normalcolour + "Use " + argcolour + "/seekandfind [info/i] " + normalcolour + "for more info.\n"
+						+ normalcolour + "Use " + argcolour + "/seekandfind [info/i] " + normalcolour + "for more info. tests\n"
 						+ normalcolour + "Use " + argcolour + "/seekandfind <help/h> [page number] " + normalcolour + "for a list of commands.\n"
 						+ header(pdfFile.getName()), "seekandfind.info", "player", "seekandfind [info/i]", false);
 			} else if (args.length == 1) {
